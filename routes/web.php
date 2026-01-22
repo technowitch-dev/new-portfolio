@@ -1,24 +1,37 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LinksController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LinkController;
+use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Admin\SettingsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
-   // In routes/web.php (temporary for testing)
-   Route::get('/', function () {
-    return Inertia::render('home');
+// Public Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/links', [LinksController::class, 'index'])->name('links');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// Admin Routes (require authentication)
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Link Management
+    Route::resource('links', LinkController::class);
+    
+    // Blog Post Management
+    Route::resource('blog', BlogPostController::class)->except(['show']);
+    
+    // Settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+    Route::put('/settings/colors', [SettingsController::class, 'updateColors'])->name('settings.colors');
 });
 
-Route::get('/links', function () {
-    return Inertia::render('links', [
-        'links' => [], // Empty for now
-    ]);
-});
-
-Route::get('/blog', function () {
-    return Inertia::render('blog/index', [
-        'posts' => [], // Empty for now
-    ]);
-});
+Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 require __DIR__.'/settings.php';

@@ -166,14 +166,28 @@
     }
     
     /* Apply Times New Roman to all paragraphs by default */
-    p {
+    p, td {
         font-family: var(--font-serif);
     }
     
     /* Apply Gothica font to headings */
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6, th, a, label {
         font-family: var(--font-gothica);
         font-weight: bold; /* Since we're using the bold variant */
+    }
+
+    th, a, label {
+        font-family: var(--font-gothica);
+        color: var(--portfolio-text);
+    }
+
+    input, textarea, select {
+        font-family: var(--font-serif);
+        color: var(--portfolio-text);
+    }
+
+    input::placeholder, textarea::placeholder, select::placeholder {
+        color: var(--portfolio-color2);
     }
 }
 
@@ -211,4 +225,154 @@
     .border-portfolio-color2 {
         border-color: var(--portfolio-color2);
     }
+}
+
+/* React Day Picker custom styles */
+.rdp {
+    --rdp-cell-size: 36px;
+    --rdp-accent-color: var(--portfolio-color2);
+    --rdp-background-color: var(--portfolio-bg);
+    --rdp-accent-color-dark: var(--portfolio-color2);
+    --rdp-background-color-dark: var(--portfolio-bg);
+    --rdp-outline: 2px solid var(--portfolio-text);
+    --rdp-outline-selected: 2px solid var(--portfolio-text);
+    margin: 0;
+}
+
+.rdp-button_reset {
+    appearance: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    color: inherit;
+    border: 0;
+    background-color: transparent;
+    font: inherit;
+}
+
+.rdp-button {
+    border: 2px solid transparent;
+}
+
+.rdp-button[disabled] {
+    opacity: 0.25;
+}
+
+.rdp-button:not([disabled]) {
+    cursor: pointer;
+}
+
+.rdp-nav {
+    display: flex;
+    align-items: center;
+}
+
+.rdp-multiple_months .rdp-nav {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    width: calc(100% - 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 0.5rem;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.rdp-nav_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--rdp-cell-size);
+    height: var(--rdp-cell-size);
+    padding: 0.25rem;
+    border-radius: 100%;
+    color: var(--portfolio-text);
+}
+
+.rdp-nav_button:hover:not([disabled]) {
+    background-color: var(--portfolio-color2);
+}
+
+.rdp-nav_button:focus:not([disabled]) {
+    color: var(--portfolio-text);
+    background-color: var(--portfolio-color2);
+    border: var(--rdp-outline);
+}
+
+.rdp-nav_icon {
+    width: 16px;
+    height: 16px;
+}
+
+.rdp-head_cell {
+    vertical-align: middle;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    height: var(--rdp-cell-size);
+    padding: 0;
+    color: var(--portfolio-color2);
+    font-family: var(--font-gothica);
+}
+
+.rdp-tbody {
+    border: 0;
+}
+
+.rdp-tfoot {
+    margin: 0.5rem;
+}
+
+.rdp-cell {
+    width: var(--rdp-cell-size);
+    height: 100%;
+    position: relative;
+    font-size: 0.875rem;
+    text-align: center;
+    color: var(--portfolio-text);
+    font-family: var(--font-serif);
+}
+
+.rdp-day {
+    width: var(--rdp-cell-size);
+    height: var(--rdp-cell-size);
+    border-radius: 0.375rem;
+}
+
+.rdp-day:hover:not([disabled]):not(.rdp-day_selected):not(.rdp-day_range_start):not(.rdp-day_range_end) {
+    background-color: var(--portfolio-color2);
+    color: var(--portfolio-text);
+}
+
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+    color: var(--portfolio-text);
+    opacity: 1;
+    background-color: var(--portfolio-color2);
+    font-weight: bold;
+    font-family: var(--font-gothica);
+}
+
+.rdp-day_range_start.rdp-day_range_end .rdp-button {
+    border-radius: 0.375rem;
+}
+
+.rdp-day_today:not(.rdp-day_outside) {
+    font-weight: bold;
+    color: var(--portfolio-text);
+    background-color: var(--portfolio-bg);
+    font-family: var(--font-gothica);
+}
+
+.rdp-day_outside {
+    color: var(--portfolio-color2);
+    opacity: 0.5;
+}
+
+.rdp-day_range_start,
+.rdp-day_range_end {
+    border-radius: 0.375rem;
 }

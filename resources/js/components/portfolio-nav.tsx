@@ -1,6 +1,9 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Home, Link as LinkIcon, BookOpen, Settings } from 'lucide-react';
-
+//import { Home, Link as LinkIcon, BookOpen, Settings } from 'lucide-react';
+import CrystalBallIcon from '@/components/icons/crystal-ball-icon';
+import SpellbookIcon from '@/components/icons/spellbook-icon';
+import HutIcon from '@/components/icons/hut-icon';
+import WandIcon from '@/components/icons/wand-icon';
 import { useActiveUrl } from '@/hooks/use-active-url';
 //import { home } from '@/routes';
 import { type SharedData } from '@/types';
@@ -15,14 +18,14 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
     
     const navItems = [
         //TODO: change route to home().url when route is created
-        { title: 'Home', href: '/', icon: Home },
-        { title: 'Links & Tools', href: '/links', icon: LinkIcon },
-        { title: 'Blog', href: '/blog', icon: BookOpen },
+        { title: 'Home', href: '/', icon: HutIcon },
+        { title: 'Links & Tools', href: '/links', icon: WandIcon },
+        { title: 'Blog', href: '/blog', icon: SpellbookIcon },
     ];
     
     // Add admin link if authenticated
     if (auth.user) {
-        navItems.push({ title: 'Admin', href: '/admin', icon: Settings });
+        navItems.push({ title: 'Admin', href: '/admin', icon: CrystalBallIcon });
     }
     
     return (

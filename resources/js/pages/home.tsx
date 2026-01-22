@@ -8,17 +8,37 @@ export default function Home({}: HomeProps) {
     return (
         <PublicLayout title="Home">
             <div className="space-y-12">
+                <section className="bg-portfolio-bg p-8">
+                    <h1 className="text-5xl mb-2 text-portfolio-text">technowitch</h1>
+                    <div className="prose prose-lg max-w-none">
+                         <span className="font-serif text-portfolio-text">/ˈtɛk.noʊ.wɪtʃ/ <i>noun</i> (plural: technocoven)</span>
+                        <p className="text-portfolio-text mt-2">
+                            <strong>A person who demonstrates an uncanny, seemingly supernatural ability to make technology function as desired, often without needing to possess a full technical understanding of the underlying systems.</strong>
+                            <br/>
+                            Characterized by intuitive problem solving, inexplicable luck with malfunctioning hardware or software, and an instinctive sense for “what button to press” to resolve issues.
+                        </p>
+                        <p className="text-portfolio-text mt-4">
+                            <strong>Examples:</strong>
+                            <br/>
+                            <i>"As soon as the office technowitch was summoned, the printer started working again."</i>
+                            <br/>
+                            <i>"I already tried restarting the computer, but the technowitch did it again and it worked."</i>
+                            <br/>
+                            <i>"I summoned the technowitch to review my erroring code and she found the issue in seconds."</i></p>
+                    </div>
+                </section>
                 {/* About Me Section */}
                 <section className="bg-portfolio-color1 rounded-lg p-8 shadow-lg">
                     <h1 className="text-4xl mb-6 text-portfolio-text">About Me</h1>
                     <div className="prose prose-lg max-w-none">
                         <p className="text-portfolio-text">
-                            Welcome to my portfolio! I'm an IT professional with experience in 
-                            software development, system administration, and technology consulting.
+                        Hi! My name is Skye, a self-proclaimed technowitch
                         </p>
                         <p className="text-portfolio-text mt-4">
-                            I'm passionate about creating efficient solutions and staying up-to-date 
-                            with the latest technologies in the industry.
+                        I am a Computer Science graduate from the University of Wollongong with a specialisation in Cybersecurity, I bring my unique blend of technical knowledge, imaginative thinking, and practical experience to the field. I am currently working as an IT Officer at Real Life Community Group, where I develop my skills and apply my knowledge to whatever novel challenge I am presented with.
+                        </p>
+                        <p className="text-portfolio-text mt-4">
+                        Beyond the digital realm, I like to maintain a balanced lifestyle through sports, social and creative pursuits. I like to stay active through touch football and fitness kickboxing, while my hobbies include Magic: The Gathering, immersing myself in a diverse array of books, and expressing my creativity through painting minifigures. I really enjoy engaging in topics from a philosophical perspective and love to learn. I try to treat every conversation I have as an opportunity to learn something new.
                         </p>
                     </div>
                 </section>
