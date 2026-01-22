@@ -33,6 +33,13 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-8">
+                        <Link href="/" className="flex items-center">
+                            <img 
+                                src="/logo.svg" 
+                                alt="Logo" 
+                                className="h-8 w-auto"
+                            />
+                        </Link>
                         {navItems.map((item) => {
                             const Icon = item.icon;
                             const isActive = urlIsActive(item.href);

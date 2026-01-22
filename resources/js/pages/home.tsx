@@ -12,12 +12,12 @@ export default function Home({}: HomeProps) {
                     <h1 className="text-5xl mb-2 text-portfolio-text">technowitch</h1>
                     <div className="prose prose-lg max-w-none">
                          <span className="font-serif text-portfolio-text">/ˈtɛk.noʊ.wɪtʃ/ <i>noun</i> (plural: technocoven)</span>
-                        <p className="text-portfolio-text mt-2">
+                        <p className="text-portfolio-text mt-2 text-lg">
                             <strong>A person who demonstrates an uncanny, seemingly supernatural ability to make technology function as desired, often without needing to possess a full technical understanding of the underlying systems.</strong>
                             <br/>
                             Characterized by intuitive problem solving, inexplicable luck with malfunctioning hardware or software, and an instinctive sense for “what button to press” to resolve issues.
                         </p>
-                        <p className="text-portfolio-text mt-4">
+                        <p className="text-portfolio-text mt-4 text-lg">
                             <strong>Examples:</strong>
                             <br/>
                             <i>"As soon as the office technowitch was summoned, the printer started working again."</i>
