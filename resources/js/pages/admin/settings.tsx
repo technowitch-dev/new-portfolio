@@ -32,7 +32,7 @@ export default function Settings({ colorScheme }: SettingsProps) {
             <div className="space-y-6">
                 <h1 className="text-4xl text-portfolio-text mb-8">Settings</h1>
 
-                <div className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
+                <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
                     <h2 className="text-xl font-semibold mb-4 text-portfolio-text">Color Scheme</h2>
                     
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -144,12 +144,12 @@ export default function Settings({ colorScheme }: SettingsProps) {
                         </div>
 
                         <div className="flex justify-end">
-                            <Button type="submit" disabled={processing} className="font-gothica">
+                            <Button type="submit" disabled={processing} className="font-gothica bg-portfolio-bg hover:bg-portfolio-color2 text-portfolio-text transition-colors duration-200">
                                 {processing ? 'Saving...' : 'Save Colors'}
                             </Button>
                         </div>
                     </form>
-                </div>
+                </section>
             </div>
         </PublicLayout>
     );

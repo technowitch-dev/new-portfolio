@@ -10,6 +10,8 @@
 
 @import 'tw-animate-css';
 
+@import './fireflies.css';
+
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
@@ -188,6 +190,11 @@
 
     input::placeholder, textarea::placeholder, select::placeholder {
         color: var(--portfolio-color2);
+    }
+
+    section, a, table, button, form, article{
+        z-index: 2;
+        position: relative;
     }
 }
 

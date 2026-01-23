@@ -1,5 +1,4 @@
 import { Link, usePage } from '@inertiajs/react';
-//import { Home, Link as LinkIcon, BookOpen, Settings } from 'lucide-react';
 import CrystalBallIcon from '@/components/icons/crystal-ball-icon';
 import SpellbookIcon from '@/components/icons/spellbook-icon';
 import HutIcon from '@/components/icons/hut-icon';
@@ -29,7 +28,7 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
     }
     
     return (
-        <nav className={`bg-portfolio-bg border-b border-portfolio-color1 ${className}`}>
+        <nav className={`bg-portfolio-bg border-b border-portfolio-color1 z-2 relative ${className}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-8">

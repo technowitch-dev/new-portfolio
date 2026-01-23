@@ -24,7 +24,7 @@ export default function Dashboard({ stats }: DashboardProps) {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
+                    <section className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-portfolio-color2">Total Links</p>
@@ -32,9 +32,9 @@ export default function Dashboard({ stats }: DashboardProps) {
                             </div>
                             <WandIcon className="h-8 w-8 text-portfolio-color2" />
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
+                    <section className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-portfolio-color2">Total Posts</p>
@@ -42,9 +42,9 @@ export default function Dashboard({ stats }: DashboardProps) {
                             </div>
                             <SpellbookIcon className="h-8 w-8 text-portfolio-color2" />
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
+                    <section className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-portfolio-color2">Published</p>
@@ -52,9 +52,9 @@ export default function Dashboard({ stats }: DashboardProps) {
                             </div>
                             <ScrollIcon className="h-8 w-8 text-portfolio-color2" />
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
+                    <section className="bg-portfolio-color1 rounded-lg p-6 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-portfolio-color2">Drafts</p>
@@ -62,7 +62,7 @@ export default function Dashboard({ stats }: DashboardProps) {
                             </div>
                             <ScrollIcon className="h-8 w-8 text-portfolio-color2" />
                         </div>
-                    </div>
+                    </section>
                 </div>
 
                 {/* Quick Actions */}

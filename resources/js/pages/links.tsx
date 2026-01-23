@@ -57,7 +57,7 @@ export default function Links({ links }: LinksProps) {
                     const isExpanded = expandedCategories.has(category);
                     
                     return (
-                        <div
+                        <section
                             key={category}
                             className="bg-portfolio-color1 rounded-lg shadow-lg overflow-hidden"
                         >
@@ -109,7 +109,7 @@ export default function Links({ links }: LinksProps) {
                                     </div>
                                 </div>
                             )}
-                        </div>
+                        </section>
                     );
                 })}
             </div>

@@ -52,7 +52,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                 <div className="flex justify-between items-center">
                     <h1 className="text-4xl text-portfolio-text mb-8">Manage Blog Posts</h1>
                     <Link href="/admin/blog/create">
-                        <Button className="font-gothica">
+                        <Button className="font-gothica bg-portfolio-color1 hover:bg-portfolio-color2 text-portfolio-text transition-colors duration-200">
                             <Plus className="h-4 w-4 mr-2" />
                             New Post
                         </Button>
@@ -89,7 +89,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                                 </tr>
                             ) : (
                                 posts.map((post) => (
-                                    <tr key={post.id} className="hover:bg-portfolio-color2 transition-colors">
+                                    <tr key={post.id}>
                                         <td className="px-6 py-4">
                                             <div className="text-sm font-medium text-portfolio-text">
                                                 {post.title}

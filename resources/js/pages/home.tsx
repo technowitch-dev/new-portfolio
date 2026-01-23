@@ -8,7 +8,7 @@ export default function Home({}: HomeProps) {
     return (
         <PublicLayout title="Home">
             <div className="space-y-12">
-                <section className="bg-portfolio-bg p-8">
+                <section className="bg-portfolio-bg p-8 z-0 static">
                     <h1 className="text-5xl mb-2 text-portfolio-text">technowitch</h1>
                     <div className="prose prose-lg max-w-none">
                          <span className="font-serif text-portfolio-text">/ˈtɛk.noʊ.wɪtʃ/ <i>noun</i> (plural: technocoven)</span>
