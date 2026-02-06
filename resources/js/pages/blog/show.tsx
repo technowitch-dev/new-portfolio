@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from '@inertiajs/react';
 import { Calendar, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import DOMPurify from 'dompurify';
 
 import PublicLayout from '@/layouts/public-layout';
 
@@ -70,6 +71,7 @@ export default function BlogShow({ post }: BlogShowProps) {
         if (intervalRef.current) clearInterval(intervalRef.current);
         intervalRef.current = null;
     };
+    const cleanContent = DOMPurify.sanitize(post.content);
 
     return (
         <PublicLayout title={post.title}>
@@ -140,7 +142,7 @@ export default function BlogShow({ post }: BlogShowProps) {
                     {/* Blog Content */}
                     <div
                         className="prose prose-lg max-w-none text-portfolio-text"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        dangerouslySetInnerHTML={{ __html: cleanContent }}
                     />
                 </article>
             </div>

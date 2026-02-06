@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+
 class BlogPostController extends Controller
 {
     public function index()
@@ -39,7 +40,6 @@ class BlogPostController extends Controller
 
         // Determine published_at based on is_draft
         $publishedAt = ($validated['is_draft'] ?? true) ? null : now();
-
         // Create blog post
         $post = BlogPost::create([
             'title' => $validated['title'],
@@ -112,7 +112,6 @@ class BlogPostController extends Controller
     
         // Determine published_at based on is_draft
         $publishedAt = ($validated['is_draft'] ?? true) ? null : now();
-    
         // Start with existing images array (from hidden form field)
         $existingImages = $validated['existing_images'] ?? [];
         

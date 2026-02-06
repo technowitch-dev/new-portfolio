@@ -47,7 +47,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                 <div className="flex justify-between items-center">
                     <h1 className="text-4xl text-portfolio-text mb-8">Manage Blog Posts</h1>
                     <Link href="/admin/blog/create">
-                        <Button className="font-gothica bg-portfolio-color1 hover:bg-portfolio-color2 text-portfolio-text transition-colors duration-200">
+                        <Button className="font-gothica bg-portfolio-color1 hover:bg-portfolio-color2 text-portfolio-text transition-colors duration-200 cursor-pointer">
                             <Plus className="h-4 w-4 mr-2" />
                             New Post
                         </Button>
@@ -143,7 +143,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                                                 </Link>
                                                 <button
                                                     onClick={() => handleDelete(post.id)}
-                                                    className="text-red-600 hover:text-red-800"
+                                                    className="text-red-600 hover:text-red-800 cursor-pointer"
                                                     title="Delete post"
                                                 >
                                                     <Trash2 className="h-4 w-4" />
