@@ -2,19 +2,12 @@ import { useForm } from '@inertiajs/react';
 import { ArrowLeft, X, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from '@inertiajs/react';
-
+import { Checkbox } from '@/components/ui/checkbox';
 import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { DateTimePicker } from '@/components/ui/date-time-picker';
-
-interface BlogPostImage {
-    id: number;
-    image_path: string;
-    order: number;
-}
 
 interface BlogPost {
     id: number;
@@ -23,7 +16,8 @@ interface BlogPost {
     content: string;
     published_at: string | null;
     created_at: string;
-    images?: BlogPostImage[];
+    images?: string[];  // Array of image paths
+    is_draft: boolean;
 }
 
 interface BlogEditProps {
@@ -32,29 +26,22 @@ interface BlogEditProps {
 
 export default function BlogEdit({ post }: BlogEditProps) {
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-    const [imagesToDelete, setImagesToDelete] = useState<number[]>([]);
-    
-    // Format published_at for DateTimePicker (format: "yyyy-MM-dd'T'HH:mm")
-    const formatDateTimeForPicker = (dateString: string | null) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-    };
 
     const { data, setData, put, processing, errors } = useForm({
         title: post.title,
         content: post.content,
         slug: post.slug,
-        published_at: formatDateTimeForPicker(post.published_at),
+        is_draft: post.is_draft,
         images: [] as File[],
-        delete_images: [] as number[],
+        existing_images: post.images ?? [],
+        deleted_images: [] as string[],
     });
 
+    const removeExistingImage = (path: string) => {
+        setData('existing_images', data.existing_images.filter((p) => p !== path));
+        setData('deleted_images', [...data.deleted_images, path]);
+    };
+    
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files || []);
         if (files.length > 0) {
@@ -75,13 +62,6 @@ export default function BlogEdit({ post }: BlogEditProps) {
         URL.revokeObjectURL(imagePreviews[index]);
     };
 
-    const markImageForDeletion = (imageId: number) => {
-        if (!imagesToDelete.includes(imageId)) {
-            setImagesToDelete([...imagesToDelete, imageId]);
-            setData('delete_images', [...data.delete_images, imageId]);
-        }
-    };
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         put(`/admin/blog/${post.id}`, {
@@ -93,7 +73,7 @@ export default function BlogEdit({ post }: BlogEditProps) {
         });
     };
 
-    const existingImages = post.images?.filter(img => !imagesToDelete.includes(img.id)) || [];
+    const existingImages = data.existing_images || [];
 
     return (
         <PublicLayout title="Edit Blog Post">
@@ -158,56 +138,54 @@ export default function BlogEdit({ post }: BlogEditProps) {
                         </p>
                         {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content}</p>}
                     </div>
-
-                    <div>
-                        <Label htmlFor="published_at">Publish Date</Label>
-                        <div className="mt-1">
-                            <DateTimePicker
-                                value={data.published_at}
-                                onChange={(value) => setData('published_at', value)}
-                                placeholder="Select publish date and time"
-                            />
-                        </div>
-                        <p className="text-sm text-portfolio-color2 mt-1">
-                            Leave empty to save as draft. Set a future date to schedule publication.
-                        </p>
-                        {errors.published_at && <p className="text-red-500 text-sm mt-1">{errors.published_at}</p>}
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                            id="is_draft"
+                            checked={data.is_draft}
+                            onCheckedChange={(checked) => setData('is_draft', checked === true)}
+                        />
+                        <Label htmlFor="is_draft" className="text-sm font-normal cursor-pointer">
+                            Save as draft
+                        </Label>
                     </div>
-
+                    <p className="text-sm text-portfolio-color2 mt-1">
+                        Uncheck to publish. Check to save as draft.
+                    </p>
                     <div>
                         <Label>Existing Images</Label>
                         {existingImages.length > 0 ? (
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                                {existingImages.map((image) => (
-                                    <div key={image.id} className="relative group">
+                                {existingImages.map((path) => (
+                                    <div key={path} className="relative group">
                                         <img
-                                            src={`/storage/${image.image_path}`}
-                                            alt={`Image ${image.order + 1}`}
+                                            src={`/storage/${path}`}
+                                            alt={`Image ${existingImages.indexOf(path) + 1}`}
                                             className="w-full h-32 object-cover rounded border border-portfolio-color2"
                                         />
                                         <button
                                             type="button"
-                                            onClick={() => markImageForDeletion(image.id)}
+                                            onClick={() => removeExistingImage(path)}
                                             className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                                             title="Delete image"
                                         >
                                             <Trash2 className="h-4 w-4" />
                                         </button>
-                                        <div className="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
-                                            Order: {image.order}
-                                        </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
                             <p className="text-sm text-portfolio-color2 mt-2">No existing images</p>
                         )}
-                        {imagesToDelete.length > 0 && (
-                            <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-2">
-                                {imagesToDelete.length} image(s) marked for deletion
-                            </p>
-                        )}
                     </div>
+                    {data.deleted_images.map((path, index) => (
+                    
+                        <input
+                            key={path}
+                            type="hidden"
+                            name={`deleted_images[${index}]`}
+                            value={path}
+                        />
+                    ))}
 
                     <div>
                         <Label htmlFor="images">Add New Images</Label>
@@ -249,14 +227,14 @@ export default function BlogEdit({ post }: BlogEditProps) {
                             )}
                         </div>
                         {errors.images && <p className="text-red-500 text-sm mt-1">{errors.images}</p>}
-                        {errors['images.*'] && <p className="text-red-500 text-sm mt-1">{errors['images.*']}</p>}
+                        {errors.images && <p className="text-red-500 text-sm mt-1">{errors.images}</p>}
                     </div>
 
                     <div className="flex justify-end space-x-4">
                         <Link href="/admin/blog">
                             <Button type="button" variant="outline" className="font-gothica">Cancel</Button>
                         </Link>
-                        <Button type="submit" disabled={processing} className="font-gothica">
+                        <Button type="submit" disabled={processing} className="font-gothica text-portfolio-text bg-portfolio-bg hover:bg-portfolio-color2 transition-colors duration-200">
                             {processing ? 'Updating...' : 'Update Post'}
                         </Button>
                     </div>

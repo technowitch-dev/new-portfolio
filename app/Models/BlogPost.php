@@ -15,19 +15,13 @@ class BlogPost extends Model
         'content',
         'slug',
         'published_at',
+        'images',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'images' => 'array',
     ];
-
-    /**
-     * Relationship to blog post images
-     */
-    public function images()
-    {
-        return $this->hasMany(BlogPostImage::class)->orderBy('order');
-    }
 
     /**
      * Automatically generate slug from title if not provided

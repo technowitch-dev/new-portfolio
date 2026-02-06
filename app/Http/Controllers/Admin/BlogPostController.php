@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
-use App\Models\BlogPostImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 class BlogPostController extends Controller
 {
     public function index()
     {
-        $posts = BlogPost::with('images')
-            ->orderBy('created_at', 'desc')
+        $posts = BlogPost::orderBy('created_at', 'desc')
             ->get();
 
         return Inertia::render('admin/blog/index', [
@@ -33,105 +32,168 @@ class BlogPostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'slug' => 'nullable|string|max:255|unique:blog_posts,slug',
-            'published_at' => 'nullable|date',
+            'is_draft' => 'nullable|boolean',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120', // 5MB max per image
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:20000',
         ]);
+
+        // Determine published_at based on is_draft
+        $publishedAt = ($validated['is_draft'] ?? true) ? null : now();
 
         // Create blog post
         $post = BlogPost::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
             'slug' => $validated['slug'] ?? null,
-            'published_at' => $validated['published_at'] ?? null,
+            'published_at' => $publishedAt,
+            'images' => [], // Initialize empty array
         ]);
 
         // Handle image uploads
+        $imagePaths = [];
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $index => $image) {
-                $imagePath = $image->store('blog-images', 'public');
+            $uploadPath = "blog-images/{$post->id}";
+            
+            foreach ($request->file('images') as $image) {
+                // Generate GUID for filename
+                $guid = Str::uuid()->toString();
+                $extension = $image->getClientOriginalExtension();
+                $filename = "{$guid}.{$extension}";
                 
-                BlogPostImage::create([
-                    'blog_post_id' => $post->id,
-                    'image_path' => $imagePath,
-                    'order' => $index,
-                ]);
+                // Store image: public/storage/blog-images/{post_id}/{guid}.{ext}
+                $imagePath = $image->storeAs($uploadPath, $filename, 'public');
+                
+                // Add to paths array (store relative path)
+                $imagePaths[] = $imagePath;
             }
+            
+            // Update post with image paths array
+            $post->update(['images' => $imagePaths]);
         }
 
         return redirect()->route('admin.blog.index')
             ->with('success', 'Blog post created successfully.');
     }
 
-    public function edit(BlogPost $blogPost)
+    public function edit(BlogPost $blog)
     {
-        $blogPost->load('images');
+        $post = $blog;
+
+        $postPayload = [
+            'id' => $post->id,
+            'title' => $post->title,
+            'content' => $post->content,
+            'slug' => $post->slug,
+            'published_at' => $post->published_at?->toIso8601String(),
+            'created_at' => $post->created_at?->toIso8601String(),
+            'images' => $post->images ?? [],
+            'is_draft' => $post->published_at === null,
+        ];
 
         return Inertia::render('admin/blog/edit', [
-            'post' => $blogPost,
+            'post' => $postPayload,
         ]);
     }
 
-    public function update(Request $request, BlogPost $blogPost)
+    public function update(Request $request, BlogPost $blog)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'slug' => 'nullable|string|max:255|unique:blog_posts,slug,' . $blogPost->id,
-            'published_at' => 'nullable|date',
+            'slug' => 'nullable|string|max:255|unique:blog_posts,slug,' . $blog->id,
+            'is_draft' => 'nullable|boolean',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
-            'delete_images' => 'nullable|array',
-            'delete_images.*' => 'integer|exists:blog_post_images,id',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:20000',
+            'existing_images' => 'nullable|array',
+            'existing_images.*' => 'string', // Array of image paths
+            'deleted_images' => 'nullable|array',
+            'deleted_images.*' => 'string', // Array of image paths to delete
         ]);
-
+    
+        // Determine published_at based on is_draft
+        $publishedAt = ($validated['is_draft'] ?? true) ? null : now();
+    
+        // Start with existing images array (from hidden form field)
+        $existingImages = $validated['existing_images'] ?? [];
+        
+        // Remove deleted images from the array
+        if (!empty($validated['deleted_images'])) {
+            foreach ($validated['deleted_images'] as $deletedPath) {
+                // Remove from array
+                $existingImages = array_values(array_filter($existingImages, function($path) use ($deletedPath) {
+                    return $path !== $deletedPath;
+                }));
+                
+                // Delete file from storage
+                Storage::disk('public')->delete($deletedPath);
+            }
+        }
+    
+        // Handle new image uploads
+        $newImagePaths = [];
+        if ($request->hasFile('images')) {
+            $uploadPath = "blog-images/{$blog->id}";
+            
+            foreach ($request->file('images') as $image) {
+                // Generate GUID for filename
+                $guid = Str::uuid()->toString();
+                $extension = $image->getClientOriginalExtension();
+                $filename = "{$guid}.{$extension}";
+                
+                // Store image: public/storage/blog-images/{post_id}/{guid}.{ext}
+                $imagePath = $image->storeAs($uploadPath, $filename, 'public');
+                
+                // Add to new paths array
+                $newImagePaths[] = $imagePath;
+            }
+        }
+    
+        // Combine existing and new images
+        $allImages = array_merge($existingImages, $newImagePaths);
+    
         // Update blog post
-        $blogPost->update([
+        $blog->update([
             'title' => $validated['title'],
             'content' => $validated['content'],
             'slug' => $validated['slug'] ?? null,
-            'published_at' => $validated['published_at'] ?? null,
+            'published_at' => $publishedAt,
+            'images' => $allImages,
         ]);
-
-        // Delete requested images
-        if (!empty($validated['delete_images'])) {
-            $imagesToDelete = BlogPostImage::whereIn('id', $validated['delete_images'])
-                ->where('blog_post_id', $blogPost->id)
-                ->get();
-
-            foreach ($imagesToDelete as $image) {
-                Storage::disk('public')->delete($image->image_path);
-                $image->delete();
-            }
-        }
-
-        // Handle new image uploads
-        if ($request->hasFile('images')) {
-            $maxOrder = $blogPost->images()->max('order') ?? -1;
+    
+        // Clean up orphaned files
+        $imageDirectory = "blog-images/{$blog->id}";
+        if (Storage::disk('public')->exists($imageDirectory)) {
+            $filesInDirectory = Storage::disk('public')->files($imageDirectory);
             
-            foreach ($request->file('images') as $index => $image) {
-                $imagePath = $image->store('blog-images', 'public');
-                
-                BlogPostImage::create([
-                    'blog_post_id' => $blogPost->id,
-                    'image_path' => $imagePath,
-                    'order' => $maxOrder + $index + 1,
-                ]);
+            foreach ($filesInDirectory as $file) {
+                // Check if file is in the images array
+                if (!in_array($file, $allImages)) {
+                    // File is orphaned, delete it
+                    Storage::disk('public')->delete($file);
+                }
             }
         }
-
+    
         return redirect()->route('admin.blog.index')
             ->with('success', 'Blog post updated successfully.');
     }
 
-    public function destroy(BlogPost $blogPost)
+    public function destroy(BlogPost $blog)
     {
-        // Delete all associated images
-        foreach ($blogPost->images as $image) {
-            Storage::disk('public')->delete($image->image_path);
+        // Delete all images from storage
+        if (!empty($blog->images) && is_array($blog->images)) {
+            foreach ($blog->images as $imagePath) {
+                Storage::disk('public')->delete($imagePath);
+            }
+            
+            // Delete the entire directory
+            $imageDirectory = "blog-images/{$blog->id}";
+            if (Storage::disk('public')->exists($imageDirectory)) {
+                Storage::disk('public')->deleteDirectory($imageDirectory);
+            }
         }
 
-        $blogPost->delete();
+        $blog->delete();
 
         return redirect()->route('admin.blog.index')
             ->with('success', 'Blog post deleted successfully.');

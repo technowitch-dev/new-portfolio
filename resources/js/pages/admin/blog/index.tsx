@@ -1,15 +1,8 @@
 import { Link, router } from '@inertiajs/react';
 import { Plus, Pencil, Trash2, Eye, Calendar } from 'lucide-react';
-
 import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-
-interface BlogPostImage {
-    id: number;
-    image_path: string;
-    order: number;
-}
 
 interface BlogPost {
     id: number;
@@ -18,12 +11,14 @@ interface BlogPost {
     content: string;
     published_at: string | null;
     created_at: string;
-    images?: BlogPostImage[];
+    images: string[];
 }
 
 interface BlogIndexProps {
     posts: BlogPost[];
 }
+
+const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
 export default function BlogIndex({ posts }: BlogIndexProps) {
     const handleDelete = (id: number) => {
@@ -34,7 +29,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
 
     const formatDate = (dateString: string | null) => {
         if (!dateString) return 'Draft';
-        return new Date(dateString).toLocaleDateString('en-US', {
+        return new Date(dateString).toLocaleDateString('en-AU', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -84,7 +79,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                             {posts.length === 0 ? (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-4 text-center text-portfolio-color2">
-                                        No blog posts found. Create your first post!
+                                        No blog posts found
                                     </td>
                                 </tr>
                             ) : (
@@ -95,7 +90,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                                                 {post.title}
                                             </div>
                                             <div className="text-sm text-portfolio-color2 mt-1">
-                                                /blog/{post.slug}
+                                                {baseUrl}/blog/{post.slug}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -121,7 +116,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-portfolio-color2">
                                             {post.images && post.images.length > 0 ? (
-                                                <span>{post.images.length} image{post.images.length !== 1 ? 's' : ''}</span>
+                                                <span>{post.images.length ?? 0} image{post.images.length !== 1 ? 's' : ''}</span>
                                             ) : (
                                                 <span className="text-portfolio-color2 opacity-50">No images</span>
                                             )}

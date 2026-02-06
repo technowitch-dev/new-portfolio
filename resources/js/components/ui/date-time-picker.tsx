@@ -42,6 +42,14 @@ export function DateTimePicker({
         return '';
     });
     const [isOpen, setIsOpen] = React.useState(false);
+    const formatLocalToUTC = (date: Date): string => {
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const hours = String(date.getUTCHours()).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
 
     React.useEffect(() => {
         if (value) {
@@ -65,13 +73,15 @@ export function DateTimePicker({
                 const newDate = new Date(date);
                 newDate.setHours(parseInt(hours) || 0);
                 newDate.setMinutes(parseInt(minutes) || 0);
-                onChange(format(newDate, "yyyy-MM-dd'T'HH:mm"));
+                // Convert local time to UTC before sending
+                onChange(formatLocalToUTC(newDate));
             } else {
                 // Just set the date, time will be set separately
                 const newDate = new Date(date);
                 newDate.setHours(0);
                 newDate.setMinutes(0);
-                onChange(format(newDate, "yyyy-MM-dd'T'HH:mm"));
+                // Convert local time to UTC before sending
+                onChange(formatLocalToUTC(newDate));
             }
         } else {
             setSelectedDate(undefined);
@@ -88,13 +98,13 @@ export function DateTimePicker({
             const newDate = new Date(selectedDate);
             newDate.setHours(parseInt(hours) || 0);
             newDate.setMinutes(parseInt(minutes) || 0);
-            onChange(format(newDate, "yyyy-MM-dd'T'HH:mm"));
+            onChange(formatLocalToUTC(newDate));
         } else if (selectedDate) {
             // Date selected but no time yet
             const newDate = new Date(selectedDate);
             newDate.setHours(0);
             newDate.setMinutes(0);
-            onChange(format(newDate, "yyyy-MM-dd'T'HH:mm"));
+            onChange(formatLocalToUTC(newDate));
         }
     };
 

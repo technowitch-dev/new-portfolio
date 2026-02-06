@@ -9,8 +9,8 @@ export default function Home({}: HomeProps) {
         <PublicLayout title="Home">
             <div className="space-y-12">
                 <section className="bg-portfolio-bg p-8 z-0 static">
-                    <h1 className="text-5xl mb-2 text-portfolio-text">technowitch</h1>
-                    <div className="prose prose-lg max-w-none">
+                    <h1 className="text-5xl mb-2 text-portfolio-text z-2 relative">technowitch</h1>
+                    <div className="prose prose-lg max-w-none z-2 relative">
                          <span className="font-serif text-portfolio-text">/ˈtɛk.noʊ.wɪtʃ/ <i>noun</i> (plural: technocoven)</span>
                         <p className="text-portfolio-text mt-2 text-lg">
                             <strong>A person who demonstrates an uncanny, seemingly supernatural ability to make technology function as desired, often without needing to possess a full technical understanding of the underlying systems.</strong>

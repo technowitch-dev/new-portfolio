@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { DateTimePicker } from '@/components/ui/date-time-picker';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function BlogCreate() {
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -17,7 +17,7 @@ export default function BlogCreate() {
         title: '',
         content: '',
         slug: '',
-        published_at: '',
+        is_draft: true,
         images: [] as File[],
     });
 
@@ -67,15 +67,12 @@ export default function BlogCreate() {
                             id="title"
                             value={data.title}
                             onChange={(e) => {
-                                setData('title', e.target.value);
-                                // Auto-generate slug if empty
-                                if (!data.slug) {
-                                    const slug = e.target.value
-                                        .toLowerCase()
-                                        .replace(/[^a-z0-9]+/g, '-')
-                                        .replace(/(^-|-$)/g, '');
-                                    setData('slug', slug);
-                                }
+                                setData('title', e.target.value); 
+                                const slug = e.target.value
+                                    .toLowerCase()
+                                    .replace(/[^a-z0-9]+/g, '-')
+                                    .replace(/(^-|-$)/g, '');
+                                setData('slug', slug);
                             }}
                             className="mt-1"
                             placeholder="Enter blog post title"
@@ -114,21 +111,19 @@ export default function BlogCreate() {
                         {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content}</p>}
                     </div>
 
-                    <div>
-                        <Label htmlFor="published_at">Publish Date</Label>
-                        <div className="mt-1"
-                            id="published_at">
-                            <DateTimePicker
-                                value={data.published_at}
-                                onChange={(value) => setData('published_at', value)}
-                                placeholder="Select publish date and time"
-                            />
-                        </div>
-                        <p className="text-sm text-portfolio-color2 mt-1">
-                            Leave empty to save as draft. Set a future date to schedule publication.
-                        </p>
-                        {errors.published_at && <p className="text-red-500 text-sm mt-1">{errors.published_at}</p>}
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                            id="is_draft"
+                            checked={data.is_draft}
+                            onCheckedChange={(checked) => setData('is_draft', checked === true)}
+                        />
+                        <Label htmlFor="is_draft" className="text-sm font-normal cursor-pointer">
+                            Save as draft
+                        </Label>
                     </div>
+                    <p className="text-sm text-portfolio-color2 mt-1">
+                        Uncheck to publish immediately. Check to save as draft.
+                    </p>
 
                     <div>
                         <Label htmlFor="images">Images</Label>
@@ -136,7 +131,6 @@ export default function BlogCreate() {
                             <Input
                                 id="images"
                                 type="file"
-                                accept="image/*"
                                 multiple
                                 onChange={handleImageChange}
                                 className="mb-2"
@@ -177,7 +171,7 @@ export default function BlogCreate() {
                         <Link href="/admin/blog">
                             <Button type="button" variant="outline" className="font-gothica">Cancel</Button>
                         </Link>
-                        <Button type="submit" disabled={processing} className="font-gothica">
+                        <Button type="submit" disabled={processing} className="font-gothica text-portfolio-text bg-portfolio-bg hover:bg-portfolio-color2 transition-colors duration-200">
                             {processing ? 'Creating...' : 'Create Post'}
                         </Button>
                     </div>

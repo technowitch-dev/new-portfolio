@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content'); // Full blog post content
             $table->string('slug')->unique(); // URL-friendly version of title
             $table->timestamp('published_at')->nullable(); // Null = draft, set = published
+            $table->json('images')->nullable();
             $table->timestamps();
         });
     }

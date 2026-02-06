@@ -11,7 +11,6 @@ class BlogController extends Controller
     public function index()
     {
         $posts = BlogPost::published()
-            ->with('images')
             ->orderBy('published_at', 'desc')
             ->get();
 
@@ -23,7 +22,6 @@ class BlogController extends Controller
     public function show($slug)
     {
         $post = BlogPost::where('slug', $slug)
-            ->with('images')
             ->firstOrFail();
 
         // Allow viewing draft posts in development, or add admin check
@@ -31,8 +29,21 @@ class BlogController extends Controller
             abort(404);
         }
 
+        // Get previous and next published posts for navigation
+        $previousPost = BlogPost::published()
+            ->where('published_at', '<', $post->published_at)
+            ->orderBy('published_at', 'desc')
+            ->first(['id', 'slug', 'title']);
+
+        $nextPost = BlogPost::published()
+            ->where('published_at', '>', $post->published_at)
+            ->orderBy('published_at', 'asc')
+            ->first(['id', 'slug', 'title']);
+
         return Inertia::render('blog/show', [
             'post' => $post,
+            'previousPost' => $previousPost,
+            'nextPost' => $nextPost,
         ]);
     }
 }
