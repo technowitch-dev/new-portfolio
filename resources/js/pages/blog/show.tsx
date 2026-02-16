@@ -15,10 +15,6 @@ interface BlogPost {
     images: string[];
 }
 
-interface BlogShowProps {
-    post: BlogPost;
-}
-
 interface BlogPostNav {
     id: number;
     slug: string;
@@ -31,7 +27,7 @@ interface BlogShowProps {
     nextPost?: BlogPostNav | null;
 }
 
-export default function BlogShow({ post }: BlogShowProps) {
+export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps) {
     const formatDate = (dateString: string | null) => {
         if (!dateString) return 'Draft';
         return new Date(dateString).toLocaleDateString('en-AU', {
@@ -76,6 +72,26 @@ export default function BlogShow({ post }: BlogShowProps) {
     return (
         <PublicLayout title={post.title}>
             <div className="max-w-4xl mx-auto space-y-6">
+                {nextPost && (
+                    <Link
+                        href={`/blog/${nextPost.slug}`}
+                        className="fixed left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-portfolio-color1 text-portfolio-color2 hover:text-portfolio-text shadow-lg hover:bg-portfolio-color2 transition-colors z-10"
+                        aria-label={`Next: ${nextPost.title}`}
+                        title={"Next Post"}
+                    >
+                        <ChevronLeft className="h-8 w-8" />
+                    </Link>
+                )}
+                {previousPost && (
+                    <Link
+                        href={`/blog/${previousPost.slug}`}
+                        className="fixed right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-portfolio-color1 text-portfolio-color2 hover:text-portfolio-text shadow-lg hover:bg-portfolio-color2 transition-colors z-10"
+                        aria-label={`Previous: ${previousPost.title}`}
+                        title={"Previous Post"}
+                    >
+                        <ChevronRight className="h-8 w-8" />
+                    </Link>
+                )}
                 <Link
                     href="/blog"
                     className="inline-flex items-center space-x-2 text-portfolio-color2 hover:text-portfolio-text transition-colors mb-6"
