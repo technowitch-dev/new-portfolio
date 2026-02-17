@@ -6,6 +6,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -23,5 +26,18 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (Throwable $e, Request $request) {
+            // Only handle HTTP exceptions for Inertia requests
+            if ($e instanceof HttpException && !$request->expectsJson()) {
+                $status = $e->getStatusCode();
+                
+                if (in_array($status, [403, 404, 500, 503])) {
+                    return Inertia::render('settings/errors', [
+                        'status' => $status,
+                    ])
+                        ->toResponse($request)
+                        ->setStatusCode($status);
+                }
+            }
+        });
     })->create();

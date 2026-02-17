@@ -26,7 +26,7 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
     ];
     
     // Add admin link if authenticated
-    if (auth.user) {
+    if (auth?.user) {
         navItems.push({ title: 'Admin', href: '/admin', icon: CrystalBallIcon, method: 'get' });
         navItems.push({ title: 'Logout', href: logout.url(), icon: WitchIcon, method: 'post' });
     }
@@ -67,7 +67,7 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
                                     `}
                                 >
                                     <Icon className="h-5 w-5" />
-                                    <span>{item.title}</span>
+                                    <span className="font-gothica">{item.title}</span>
                                 </Link>
                             );
                         })}

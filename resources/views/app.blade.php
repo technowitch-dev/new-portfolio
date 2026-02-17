@@ -22,11 +22,18 @@
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
             html {
-                background-color: oklch(1 0 0);
+                background-color: {{ $colorScheme['background'] ?? '#574964' }};
             }
 
             html.dark {
-                background-color: oklch(0.145 0 0);
+                background-color: {{ $colorScheme['background'] ?? '#574964' }};
+            }
+
+            html, html.dark {
+                --portfolio-bg: {{ $colorScheme['background'] ?? '#574964' }};
+                --portfolio-color1: {{ $colorScheme['color1'] ?? '#9F8383' }};
+                --portfolio-color2: {{ $colorScheme['color2'] ?? '#C8AAAA' }};
+                --portfolio-text: {{ $colorScheme['text'] ?? '#FFDAB3' }};
             }
         </style>
 

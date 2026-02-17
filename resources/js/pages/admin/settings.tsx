@@ -45,7 +45,7 @@ export default function Settings({ colorScheme }: SettingsProps) {
                                         type="color"
                                         value={data.background}
                                         onChange={(e) => setData('background', e.target.value)}
-                                        className="w-20 h-10"
+                                        className="w-20 h-10 cursor-pointer"
                                     />
                                     <Input
                                         type="text"
@@ -68,7 +68,7 @@ export default function Settings({ colorScheme }: SettingsProps) {
                                         type="color"
                                         value={data.color1}
                                         onChange={(e) => setData('color1', e.target.value)}
-                                        className="w-20 h-10"
+                                        className="w-20 h-10 cursor-pointer"
                                     />
                                     <Input
                                         type="text"
@@ -91,7 +91,7 @@ export default function Settings({ colorScheme }: SettingsProps) {
                                         type="color"
                                         value={data.color2}
                                         onChange={(e) => setData('color2', e.target.value)}
-                                        className="w-20 h-10"
+                                        className="w-20 h-10 cursor-pointer"
                                     />
                                     <Input
                                         type="text"
@@ -114,7 +114,7 @@ export default function Settings({ colorScheme }: SettingsProps) {
                                         type="color"
                                         value={data.text}
                                         onChange={(e) => setData('text', e.target.value)}
-                                        className="w-20 h-10"
+                                        className="w-20 h-10 cursor-pointer"
                                     />
                                     <Input
                                         type="text"
