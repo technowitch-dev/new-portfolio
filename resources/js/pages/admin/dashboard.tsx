@@ -96,7 +96,7 @@ export default function Dashboard({ stats }: DashboardProps) {
                         <CrystalBallIcon className="h-6 w-6 mb-2 text-portfolio-color2" />
                         <h3 className="text-lg font-semibold mb-1 text-portfolio-text">Settings</h3>
                         <p className="text-sm text-portfolio-color2">
-                            Change color scheme
+                            Change site or user settings
                         </p>
                     </Link>
                 </div>

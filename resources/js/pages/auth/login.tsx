@@ -30,6 +30,7 @@ export default function Login({
         >
             <Head title="Log in" />
 
+            <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
             <Form
                 {...store.form()}
                 resetOnSuccess={['password']}
@@ -80,7 +81,7 @@ export default function Login({
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full font-gothica bg-portfolio-color2 hover:bg-portfolio-color1 text-portfolio-text transition-colors duration-200"
+                                className="mt-2 w-full font-gothica bg-portfolio-bg hover:bg-portfolio-color1 text-portfolio-text transition-colors duration-200"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
@@ -92,7 +93,7 @@ export default function Login({
                     </>
                 )}
             </Form>
-
+            </section>
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
                     {status}

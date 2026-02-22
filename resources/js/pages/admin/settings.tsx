@@ -1,11 +1,13 @@
-import { router,useForm } from '@inertiajs/react';
+import type { SubmitEvent } from 'react';
+import { router, useForm } from '@inertiajs/react';
 
 import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Field, Switch } from '@headlessui/react';
-
+import { usePage } from '@inertiajs/react';
+import { SharedData } from '@/types';
 interface SettingsProps {
     colorScheme: {
         background: string;
@@ -17,16 +19,26 @@ interface SettingsProps {
 }
 
 export default function Settings({ colorScheme, registrationEnabled }: SettingsProps) {
+    const { auth } = usePage<SharedData>().props;
     const { data, setData, put, processing, errors } = useForm({
         background: colorScheme.background,
         color1: colorScheme.color1,
         color2: colorScheme.color2,
         text: colorScheme.text,
+        name: auth.user.name,
+        email: auth.user.email,
+        password: '',
+        password_confirmation: '',
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleColorSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         put('/admin/settings/colors');
+    };
+
+    const handleUserSubmit = (e: SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        put('/admin/settings/user_settings');
     };
 
     const handleRegistrationChange = (checked: boolean) => {
@@ -41,7 +53,7 @@ export default function Settings({ colorScheme, registrationEnabled }: SettingsP
                 <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
                     <h2 className="text-xl font-semibold mb-4 text-portfolio-text">Color Scheme</h2>
                     
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleColorSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <Label htmlFor="background">Background Color</Label>
@@ -158,7 +170,7 @@ export default function Settings({ colorScheme, registrationEnabled }: SettingsP
                 </section>
 
                 <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4 text-portfolio-text">Registration</h2>
+                    <h2 className="text-xl font-semibold mb-4 text-portfolio-text">Site Settings</h2>
                         <Field>
                             <Label className="mr-4 h-6">Enable User Registration</Label>
                             <Switch
@@ -169,6 +181,25 @@ export default function Settings({ colorScheme, registrationEnabled }: SettingsP
                                 <span className="size-4 translate-x-1 rounded-full bg-portfolio-text transition group-data-checked:translate-x-6" />
                             </Switch>
                         </Field>
+                </section>
+
+                <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
+                    <h2 className="text-xl font-semibold mb-4 text-portfolio-text">User Settings</h2>
+                        <form onSubmit={handleUserSubmit} className="space-y-6">
+                        <Label htmlFor="name">Name</Label>
+                        <Input id="name" type="text" value={data.name} onChange={(e) => setData('name', e.target.value)} required/>
+                        <Label htmlFor="email">Email</Label>
+                        <Input id="email" type="text" value={data.email} onChange={(e) => setData('email', e.target.value)} required/>
+                        <Label htmlFor="password">New Password</Label>
+                        <Input id="password" type="password" value={data.password} onChange={(e) => setData('password', e.target.value)}/>
+                        <Label htmlFor="password_confirmation">Confirm New Password</Label>
+                        <Input id="password_confirmation" type="password" value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)}/>
+                        <div className="flex justify-end">
+                            <Button type="submit" disabled={processing} className="font-gothica bg-portfolio-bg hover:bg-portfolio-color2 text-portfolio-text transition-colors duration-200">
+                                {processing ? 'Saving...' : 'Save User Settings'}
+                            </Button>
+                        </div>
+                        </form>
                 </section>
             </div>
         </PublicLayout>

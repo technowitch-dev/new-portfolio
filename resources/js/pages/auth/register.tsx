@@ -16,6 +16,7 @@ export default function Register() {
             description="Enter your details below to create your account"
         >
             <Head title="Register" />
+            <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
             <Form
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
@@ -91,7 +92,7 @@ export default function Register() {
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full font-gothica bg-portfolio-color2 hover:bg-portfolio-color1 text-portfolio-text transition-colors duration-200"
+                                className="mt-2 w-full font-gothica bg-portfolio-bg hover:bg-portfolio-color1 text-portfolio-text transition-colors duration-200"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >
@@ -100,7 +101,7 @@ export default function Register() {
                             </Button>
                         </div>
 
-                        <div className="text-center text-sm text-muted-foreground">
+                        <div className="text-center text-sm text-portfolio-text font-serif">
                             Already have an account?{' '}
                             <TextLink className="text-portfolio-text" href={login()} tabIndex={6}>
                                 Log in
@@ -109,6 +110,7 @@ export default function Register() {
                     </>
                 )}
             </Form>
+            </section>
         </AuthLayout>
     );
 }

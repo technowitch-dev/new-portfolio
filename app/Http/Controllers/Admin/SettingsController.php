@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -45,5 +46,25 @@ class SettingsController extends Controller
 
     return redirect()->back()
         ->with('success', 'Registration setting updated.');
+    }
+
+    public function updateUserSettings(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|string|min:8|confirmed'
+        ]);
+
+        $user = auth()->user();
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        if ($validated['password']) {
+            $user->password = $validated['password'];
+        }
+        $user->saveUserSettings($validated);
+        
+        return redirect()->back()
+        ->with('success', 'User settings updated successfully.');
     }
 }

@@ -24,6 +24,16 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function saveUserSettings(array $validated): void
+    {
+        $this->name = $validated['name'];
+        $this->email = $validated['email'];
+        if ($validated['password']) {
+            $this->password = $validated['password'];
+        }
+        $this->save();
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

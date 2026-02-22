@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::put('/settings/colors', [SettingsController::class, 'updateColors'])->name('settings.colors');
+    Route::put('/settings/user_settings', [SettingsController::class, 'updateUserSettings'])->name('settings.user_settings');
     Route::put('/settings/registration', [SettingsController::class, 'updateRegistration'])->name('settings.registration');
 });
 
