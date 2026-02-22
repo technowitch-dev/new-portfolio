@@ -12,9 +12,11 @@ class SettingsController extends Controller
     public function index()
     {
         $colorScheme = SiteSetting::getColorScheme();
+        $registrationEnabled = SiteSetting::getRegistrationEnabled();
 
         return Inertia::render('admin/settings', [
             'colorScheme' => $colorScheme,
+            'registrationEnabled' => $registrationEnabled,
         ]);
     }
 
@@ -31,5 +33,17 @@ class SettingsController extends Controller
 
         return redirect()->back()
             ->with('success', 'Color scheme updated successfully.');
+    }
+
+    public function updateRegistration(Request $request)
+    {
+    $validated = $request->validate([
+        'registration_enabled' => 'required|boolean',
+    ]);
+
+    SiteSetting::setRegistrationEnabled($validated['registration_enabled']);
+
+    return redirect()->back()
+        ->with('success', 'Registration setting updated.');
     }
 }

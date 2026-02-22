@@ -11,6 +11,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
+use App\Models\SiteSetting;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -48,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView(fn (Request $request) => Inertia::render('auth/login', [
             'canResetPassword' => false,
-            'canRegister' => false,
+            'canRegister' => SiteSetting::getRegistrationEnabled(),
             'status' => $request->session()->get('status'),
         ]));
 
@@ -65,7 +66,7 @@ class FortifyServiceProvider extends ServiceProvider
             'status' => $request->session()->get('status'),
         ]));
 
-        //Fortify::registerView(fn () => Inertia::render('auth/register'));
+        Fortify::registerView(fn () => Inertia::render('auth/register'));
 
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/two-factor-challenge'));
 

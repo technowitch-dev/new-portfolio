@@ -1,9 +1,10 @@
-import { useForm } from '@inertiajs/react';
+import { router,useForm } from '@inertiajs/react';
 
 import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Field, Switch } from '@headlessui/react';
 
 interface SettingsProps {
     colorScheme: {
@@ -12,9 +13,10 @@ interface SettingsProps {
         color2: string;
         text: string;
     };
+    registrationEnabled: boolean;
 }
 
-export default function Settings({ colorScheme }: SettingsProps) {
+export default function Settings({ colorScheme, registrationEnabled }: SettingsProps) {
     const { data, setData, put, processing, errors } = useForm({
         background: colorScheme.background,
         color1: colorScheme.color1,
@@ -25,6 +27,10 @@ export default function Settings({ colorScheme }: SettingsProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         put('/admin/settings/colors');
+    };
+
+    const handleRegistrationChange = (checked: boolean) => {
+        router.put('/admin/settings/registration', { registration_enabled: checked });
     };
 
     return (
@@ -145,10 +151,24 @@ export default function Settings({ colorScheme }: SettingsProps) {
 
                         <div className="flex justify-end">
                             <Button type="submit" disabled={processing} className="font-gothica bg-portfolio-bg hover:bg-portfolio-color2 text-portfolio-text transition-colors duration-200">
-                                {processing ? 'Saving...' : 'Save Colors'}
+                                {processing ? 'Saving...' : 'Save Colours'}
                             </Button>
                         </div>
                     </form>
+                </section>
+
+                <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
+                    <h2 className="text-xl font-semibold mb-4 text-portfolio-text">Registration</h2>
+                        <Field>
+                            <Label className="mr-4 h-6">Enable User Registration</Label>
+                            <Switch
+                                checked={registrationEnabled}
+                                onChange={handleRegistrationChange}
+                                className="group inline-flex h-6 w-11 items-center rounded-full bg-portfolio-color2 transition data-checked:bg-portfolio-bg"
+                            >
+                                <span className="size-4 translate-x-1 rounded-full bg-portfolio-text transition group-data-checked:translate-x-6" />
+                            </Switch>
+                        </Field>
                 </section>
             </div>
         </PublicLayout>

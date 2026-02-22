@@ -197,7 +197,7 @@
         position: relative;
     }
 
-    button{
+    button, switch{
         cursor: pointer;
     }
 }

@@ -1,5 +1,4 @@
 import { Form, Head } from '@inertiajs/react';
-
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
@@ -92,7 +91,7 @@ export default function Register() {
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full"
+                                className="mt-2 w-full font-gothica bg-portfolio-color2 hover:bg-portfolio-color1 text-portfolio-text transition-colors duration-200"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >
@@ -103,7 +102,7 @@ export default function Register() {
 
                         <div className="text-center text-sm text-muted-foreground">
                             Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
+                            <TextLink className="text-portfolio-text" href={login()} tabIndex={6}>
                                 Log in
                             </TextLink>
                         </div>

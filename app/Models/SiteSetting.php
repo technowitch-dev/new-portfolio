@@ -65,4 +65,14 @@ class SiteSetting extends Model
     {
         self::setValue('color_scheme', json_encode($colors));
     }
+
+    public static function getRegistrationEnabled(): bool
+    {
+        return self::getValue('registration_enabled', true);
+    }
+
+    public static function setRegistrationEnabled(bool $enabled): void
+    {
+        self::setValue('registration_enabled', $enabled);
+    }
 }

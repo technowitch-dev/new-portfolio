@@ -27,3 +27,6 @@ yarn-error.log
 /.vscode
 /.zed
 .cursor/debug.log
+.npmrc
+.gitignore
+.xdp-env-ISncL5
