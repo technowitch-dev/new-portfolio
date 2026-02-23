@@ -47,7 +47,6 @@ export default function Login({
                                     name="email"
                                     required
                                     autoFocus
-                                    tabIndex={1}
                                     autoComplete="email"
                                     placeholder="email@example.com"
                                 />
@@ -63,7 +62,6 @@ export default function Login({
                                     type="password"
                                     name="password"
                                     required
-                                    tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder="Password"
                                 />
@@ -74,7 +72,6 @@ export default function Login({
                                 <Checkbox
                                     id="remember"
                                     name="remember"
-                                    tabIndex={3}
                                 />
                                 <Label htmlFor="remember">Remember me</Label>
                             </div>
@@ -82,7 +79,6 @@ export default function Login({
                             <Button
                                 type="submit"
                                 className="mt-2 w-full font-gothica bg-portfolio-bg hover:bg-portfolio-color1 text-portfolio-text transition-colors duration-200"
-                                tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
                             >
