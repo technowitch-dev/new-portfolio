@@ -37,11 +37,11 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
     };
     
     return (
-        <nav className={`bg-portfolio-bg border-b border-portfolio-color1 z-2 relative ${className}`}>
+        <nav aria-label="Main navigation" className={`bg-portfolio-bg border-b border-portfolio-color1 z-2 relative ${className}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-8">
-                        <Link href="/" className="flex items-center">
+                        <Link href="/" className="flex items-center" aria-label="technowitch.dev - Home">
                             <img 
                                 src="/logo.svg" 
                                 alt="Logo" 
@@ -65,6 +65,7 @@ export function PortfolioNav({ className = '' }: PortfolioNavProps) {
                                             : 'text-portfolio-color2 hover:text-portfolio-text hover:bg-portfolio-color1'
                                         }
                                     `}
+                                    aria-current={isActive ? 'page' : undefined}
                                 >
                                     <Icon className="h-5 w-5" />
                                     <span className="font-gothica">{item.title}</span>
