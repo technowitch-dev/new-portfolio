@@ -10,7 +10,7 @@
 /storage/*.key
 /storage/pail
 /vendor
-/.cursor
+.cursor
 .DS_Store
 .env
 .env.backup
@@ -27,7 +27,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-.cursor/debug.log
 .npmrc
 .gitignore
 .xdp-env-ISncL5
