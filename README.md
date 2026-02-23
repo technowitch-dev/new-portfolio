@@ -6,3 +6,7 @@ When deploying this to cPanel with no npm installed:
 - run "npm ci"
 - run "npm run build", fix any errors that come up
 - stage and commit all changes
+- Clone repo on cPanel
+- create and update .env file from .env.example
+- run "php artisan key:generate"
+- create mysql database and user, adding those details into the .env file
