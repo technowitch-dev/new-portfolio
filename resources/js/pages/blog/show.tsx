@@ -72,12 +72,13 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
     return (
         <PublicLayout title={post.title}>
             <div className="max-w-4xl mx-auto space-y-6">
+                {/* Fixed prev/next: hidden on small screens to avoid overlapping content; shown from sm up */}
                 {nextPost && (
                     <Link
                         href={`/blog/${nextPost.slug}`}
-                        className="fixed left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-portfolio-color1 text-portfolio-color2 hover:text-portfolio-text shadow-lg hover:bg-portfolio-color2 transition-colors z-10"
+                        className="hidden sm:flex fixed left-4 top-1/2 -translate-y-1/2 p-3 min-w-[44px] min-h-[44px] items-center justify-center rounded-full bg-portfolio-color1 text-portfolio-color2 hover:text-portfolio-text shadow-lg hover:bg-portfolio-color2 transition-colors z-10"
                         aria-label={`Next: ${nextPost.title}`}
-                        title={"Next Post"}
+                        title="Next Post"
                     >
                         <ChevronLeft className="h-8 w-8" />
                     </Link>
@@ -85,24 +86,47 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                 {previousPost && (
                     <Link
                         href={`/blog/${previousPost.slug}`}
-                        className="fixed right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-portfolio-color1 text-portfolio-color2 hover:text-portfolio-text shadow-lg hover:bg-portfolio-color2 transition-colors z-10"
+                        className="hidden sm:flex fixed right-4 top-1/2 -translate-y-1/2 p-3 min-w-[44px] min-h-[44px] items-center justify-center rounded-full bg-portfolio-color1 text-portfolio-color2 hover:text-portfolio-text shadow-lg hover:bg-portfolio-color2 transition-colors z-10"
                         aria-label={`Previous: ${previousPost.title}`}
-                        title={"Previous Post"}
+                        title="Previous Post"
                     >
                         <ChevronRight className="h-8 w-8" />
                     </Link>
                 )}
-                <Link
-                    href="/blog"
-                    className="inline-flex items-center space-x-2 text-portfolio-color2 hover:text-portfolio-text transition-colors mb-6"
-                >
-                    <ArrowLeft className="h-5 w-5" />
-                    <span>Back to Blog</span>
-                </Link>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                    <Link
+                        href="/blog"
+                        className="inline-flex items-center min-h-[44px] space-x-2 text-portfolio-color2 hover:text-portfolio-text transition-colors"
+                    >
+                        <ArrowLeft className="h-5 w-5" />
+                        <span>Back to Blog</span>
+                    </Link>
+                    {/* Inline prev/next for mobile (fixed links hidden on small screens) */}
+                    <nav className="flex items-center gap-3 sm:hidden" aria-label="Adjacent posts">
+                        {nextPost && (
+                            <Link
+                                href={`/blog/${nextPost.slug}`}
+                                className="inline-flex items-center min-h-[44px] min-w-[44px] justify-center rounded-md bg-portfolio-color2 px-3 py-2 text-portfolio-text hover:bg-portfolio-color1 transition-colors text-sm"
+                                aria-label={`Next: ${nextPost.title}`}
+                            >
+                                <ChevronLeft className="h-5 w-5" />
+                            </Link>
+                        )}
+                        {previousPost && (
+                            <Link
+                                href={`/blog/${previousPost.slug}`}
+                                className="inline-flex items-center min-h-[44px] min-w-[44px] justify-center rounded-md bg-portfolio-color2 px-3 py-2 text-portfolio-text hover:bg-portfolio-color1 transition-colors text-sm"
+                                aria-label={`Previous: ${previousPost.title}`}
+                            >
+                                <ChevronRight className="h-5 w-5" />
+                            </Link>
+                        )}
+                    </nav>
+                </div>
 
-                <article className="bg-portfolio-color1 rounded-lg p-8 shadow-lg">
+                <article className="bg-portfolio-color1 rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg">
                     <header className="mb-6">
-                        <h1 className="text-4xl text-portfolio-text mb-4">{post.title}</h1>
+                        <h1 className="text-2xl sm:text-3xl lg:text-4xl text-portfolio-text mb-4">{post.title}</h1>
                         <div className="flex items-center space-x-2 text-portfolio-color2">
                             <Calendar className="h-5 w-5" />
                             <span>{formatDate(post.published_at)}</span>
@@ -126,7 +150,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                                     <button
                                         type="button"
                                         onClick={goToPrevious}
-                                        className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-portfolio-color2"
+                                        className="absolute left-2 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-portfolio-color2"
                                         aria-label="Previous image"
                                     >
                                         <ChevronLeft className="h-6 w-6" />
@@ -134,7 +158,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                                     <button
                                         type="button"
                                         onClick={goToNext}
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-portfolio-color2"
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-portfolio-color2"
                                         aria-label="Next image"
                                     >
                                         <ChevronRight className="h-6 w-6" />
@@ -157,7 +181,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
 
                     {/* Blog Content */}
                     <div
-                        className="prose prose-lg max-w-none text-portfolio-text"
+                        className="prose max-w-none sm:prose-lg text-portfolio-text"
                         dangerouslySetInnerHTML={{ __html: cleanContent }}
                     />
                 </article>

@@ -23,9 +23,9 @@ export default function Home({}: HomeProps) {
     return (
         <PublicLayout title="Home">
             <div className="space-y-12">
-                <section className="bg-portfolio-bg p-8 z-0 static">
-                    <h1 id="technowitch-definition" className="text-5xl mb-2 text-portfolio-text z-2 relative">technowitch</h1>
-                    <div className="prose prose-lg max-w-none z-2 relative">
+                <section className="bg-portfolio-bg p-4 sm:p-6 lg:p-8 z-0 static">
+                    <h1 id="technowitch-definition" className="text-3xl sm:text-4xl lg:text-5xl mb-2 text-portfolio-text z-2 relative">technowitch</h1>
+                    <div className="prose max-w-none sm:prose-lg z-2 relative">
                          <span aria-labelledby="technowitch-definition" className="font-serif text-portfolio-text">/ˈtɛk.noʊ.wɪtʃ/ <i>noun</i> (plural: technocoven)</span>
                         <p aria-labelledby="technowitch-definition" className="text-portfolio-text mt-2 text-lg">
                             <strong>A person who demonstrates an uncanny, seemingly supernatural ability to make technology function as desired, often without needing to possess a full technical understanding of the underlying systems.</strong>
@@ -43,9 +43,9 @@ export default function Home({}: HomeProps) {
                     </div>
                 </section>
                 {/* About Me Section */}
-                <section className="bg-portfolio-color1 rounded-lg p-8 shadow-lg">
-                    <h2 id="about-me-section" className="text-4xl mb-6 text-portfolio-text">About Me</h2>
-                    <div className="prose prose-lg max-w-none">
+                <section className="bg-portfolio-color1 rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <h2 id="about-me-section" className="text-2xl sm:text-3xl lg:text-4xl mb-6 text-portfolio-text">About Me</h2>
+                    <div className="prose max-w-none sm:prose-lg">
                         <p aria-labelledby="about-me-section" className="text-portfolio-text">
                         Hi! My name is Skye, a self-proclaimed technowitch
                         </p>
@@ -59,8 +59,8 @@ export default function Home({}: HomeProps) {
                 </section>
 
                 {/* Skills Section */}
-                <section className="bg-portfolio-color2 rounded-lg p-8 shadow-lg">
-                    <h2 id="skills-section" className="text-3xl mb-6 text-portfolio-text">Skills</h2>
+                <section className="bg-portfolio-color2 rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <h2 id="skills-section" className="text-2xl sm:text-3xl mb-6 text-portfolio-text">Skills</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {/* Skills will be passed as props from controller */}
                         {skills.map((skill) => (
@@ -68,7 +68,7 @@ export default function Home({}: HomeProps) {
                             <TooltipTrigger asChild>
                                 <button
                                     aria-labelledby="skills-section"
-                                    className="bg-portfolio-bg rounded-md p-4 text-center text-portfolio-text border border-portfolio-color1 font-gothica cursor-default"
+                                    className="bg-portfolio-bg rounded-md p-4 min-h-[44px] text-center text-portfolio-text border border-portfolio-color1 font-gothica cursor-default"
                                 >
                                     {skill.name}
                                 </button>
@@ -82,10 +82,10 @@ export default function Home({}: HomeProps) {
                 </section>
 
                 {/* Experience Section */}
-                <section className="bg-portfolio-color1 rounded-lg p-8 shadow-lg">
-                    <h2 id="relevant-experience-section" className="text-3xl mb-6 text-portfolio-text">Relevant Experience</h2>
+                <section className="bg-portfolio-color1 rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <h2 id="relevant-experience-section" className="text-2xl sm:text-3xl mb-6 text-portfolio-text">Relevant Experience</h2>
                     <div className="space-y-6">
-                        <div className="bg-portfolio-bg rounded-md p-6 border-l-4 border-portfolio-color2">
+                        <div className="bg-portfolio-bg rounded-md p-4 sm:p-6 border-l-4 border-portfolio-color2">
                             <h3 id="it-officer-experience" aria-labelledby="relevant-experience-section" className="text-xl text-portfolio-text mb-2">IT Officer</h3>
                             <p aria-labelledby="it-officer-experience" className="text-portfolio-color2 mb-2">Real Life Community Group | April 2023 - Present</p>
                             <p aria-labelledby="it-officer-experience" className="text-portfolio-text">
@@ -100,7 +100,7 @@ export default function Home({}: HomeProps) {
                                 - Liased with external contractors and service providers to improve IT systems and services.
                             </p>
                         </div>
-                        <div className="bg-portfolio-bg rounded-md p-6 border-l-4 border-portfolio-color2">
+                        <div className="bg-portfolio-bg rounded-md p-4 sm:p-6 border-l-4 border-portfolio-color2">
                             <h3 id="administration-assistant-experience" aria-labelledby="relevant-experience-section" className="text-xl text-portfolio-text mb-2">Administration Assistant</h3>
                             <p aria-labelledby="administration-assistant-experience" className="text-portfolio-color2 mb-2">South Coast Private Hospital | December 2021 - Feburary 2023</p>
                             <p aria-labelledby="administration-assistant-experience" className="text-portfolio-text">
@@ -114,7 +114,7 @@ export default function Home({}: HomeProps) {
                                 - Conducted patient referral and follow-up.<br/>
                             </p>
                         </div>
-                        <div className="bg-portfolio-bg rounded-md p-6 border-l-4 border-portfolio-color2">
+                        <div className="bg-portfolio-bg rounded-md p-4 sm:p-6 border-l-4 border-portfolio-color2">
                             <h3 id="bachelor-of-computer-science-experience" aria-labelledby="relevant-experience-section" className="text-xl text-portfolio-text mb-2">Bachelor of Computer Science</h3>
                             <p aria-labelledby="bachelor-of-computer-science-experience" className="text-portfolio-color2 mb-2">University of Wollongong | March 2019 - July 2022</p>
                             <p aria-labelledby="bachelor-of-computer-science-experience" className="text-portfolio-text">
@@ -126,7 +126,7 @@ export default function Home({}: HomeProps) {
                                 - Completed electives in engineering mechanics, material science and sustainability.<br/>
                             </p>
                         </div>
-                        <div className="bg-portfolio-bg rounded-md p-6 border-l-4 border-portfolio-color2">
+                        <div className="bg-portfolio-bg rounded-md p-4 sm:p-6 border-l-4 border-portfolio-color2">
                             <h3 id="general-duties-team-leader-experience" aria-labelledby="relevant-experience-section" className="text-xl text-portfolio-text mb-2">General Duties/Team Leader</h3>
                             <p aria-labelledby="general-duties-team-leader-experience" className="text-portfolio-color2 mb-2">UOW Pulse Ltd. & Supa IGA plus Liquor Moruya | December 2015 - July 2022</p>
                             <p aria-labelledby="general-duties-team-leader-experience" className="text-portfolio-text">
