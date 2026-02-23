@@ -15,5 +15,6 @@ class SiteSettingsSeeder extends Seeder
             'color2' => '#C8AAAA',
             'text' => '#FFDAB3',
         ]);
+        SiteSetting::setRegistrationEnabled(true);
     }
 }
