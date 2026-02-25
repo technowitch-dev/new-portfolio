@@ -23,3 +23,14 @@ When deploying this to cPanel with no npm installed:
 - designate access privelages with "chmod -R 775 storage" & "chmod -R 775 bootstrap/cache"
 - delete public/hot if present in the public_html and root public folder
 - ensure .htaccess is present in the public_html folder
+
+When pulling the newest version from main:
+- run "npm run build"
+- zip public/build
+- commit and sync any changes to git
+- on cPanel, pull changes to the server
+- copy the contents of the public file into "public_html" using "cp -r public/* ~/public_html/"
+- delete index.php and rename index2.php to index.php
+- copy the build file from the local machine onto the server manually
+- delete public/hot if present in the public_html and root public folder
+- ensure .htaccess is present in the public_html folder
