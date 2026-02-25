@@ -143,7 +143,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                                     onMouseLeave={() => setIsPaused(false)}
                                 >
                                     <img
-                                        src={`/storage/${images[currentIndex]}`}
+                                        src={`/uploads/${images[currentIndex]}`}
                                         alt={`${post.title} - Image ${currentIndex + 1}`}
                                         className="w-full h-auto object-contain"
                                     />
@@ -170,7 +170,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                             ) : (
                                 <div className="rounded-lg overflow-hidden bg-portfolio-bg">
                                     <img
-                                        src={`/storage/${images[0]}`}
+                                        src={`/uploads/${images[0]}`}
                                         alt={`${post.title}`}
                                         className="w-full h-auto object-contain"
                                     />

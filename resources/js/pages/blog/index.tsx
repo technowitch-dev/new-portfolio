@@ -56,7 +56,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                                 {post.images && post.images.length > 0 && (
                                     <div className="h-48 overflow-hidden bg-portfolio-bg">
                                         <img
-                                            src={`/storage/${post.images[0]}`}
+                                            src={`/uploads/${post.images[0]}`}
                                             alt={post.title}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                         />

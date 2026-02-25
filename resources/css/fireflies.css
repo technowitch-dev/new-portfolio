@@ -31,6 +31,7 @@
   
   .firefly:nth-child(1) {
     animation-name: move1;
+    animation-duration: 14s;
   }
   .firefly:nth-child(1)::before {
     animation-duration: 14s;
@@ -101,6 +102,7 @@
   }
   .firefly:nth-child(2) {
     animation-name: move2;
+    animation-duration: 13s;
   }
   .firefly:nth-child(2)::before {
     animation-duration: 13s;
@@ -168,6 +170,7 @@
   }
   .firefly:nth-child(3) {
     animation-name: move3;
+    animation-duration: 17s;
   }
   .firefly:nth-child(3)::before {
     animation-duration: 17s;
@@ -262,6 +265,7 @@
   }
   .firefly:nth-child(4) {
     animation-name: move4;
+    animation-duration: 10s;
   }
   .firefly:nth-child(4)::before {
     animation-duration: 10s;
@@ -350,6 +354,7 @@
   }
   .firefly:nth-child(5) {
     animation-name: move5;
+    animation-duration: 10s;
   }
   .firefly:nth-child(5)::before {
     animation-duration: 10s;
@@ -438,6 +443,7 @@
   }
   .firefly:nth-child(6) {
     animation-name: move6;
+    animation-duration: 11s;
   }
   .firefly:nth-child(6)::before {
     animation-duration: 11s;
@@ -535,6 +541,7 @@
   }
   .firefly:nth-child(7) {
     animation-name: move7;
+    animation-duration: 13s;
   }
   .firefly:nth-child(7)::before {
     animation-duration: 13s;
@@ -605,6 +612,7 @@
   }
   .firefly:nth-child(8) {
     animation-name: move8;
+    animation-duration: 13s;
   }
   .firefly:nth-child(8)::before {
     animation-duration: 13s;
@@ -696,6 +704,7 @@
   }
   .firefly:nth-child(9) {
     animation-name: move9;
+    animation-duration: 10s;
   }
   .firefly:nth-child(9)::before {
     animation-duration: 10s;
@@ -796,6 +805,7 @@
   }
   .firefly:nth-child(10) {
     animation-name: move10;
+    animation-duration: 15s;
   }
   .firefly:nth-child(10)::before {
     animation-duration: 15s;
@@ -881,6 +891,7 @@
   }
   .firefly:nth-child(11) {
     animation-name: move11;
+    animation-duration: 15s;
   }
   .firefly:nth-child(11)::before {
     animation-duration: 15s;
@@ -948,6 +959,7 @@
   }
   .firefly:nth-child(12) {
     animation-name: move12;
+    animation-duration: 10s;
   }
   .firefly:nth-child(12)::before {
     animation-duration: 10s;

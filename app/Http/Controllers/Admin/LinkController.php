@@ -37,7 +37,7 @@ class LinkController extends Controller
 
         // Handle icon upload
         if ($request->hasFile('icon')) {
-            $iconPath = $request->file('icon')->store('link-icons', 'public');
+            $iconPath = $request->file('icon')->store('link-icons', 'uploads');
             $validated['icon'] = $iconPath;
         }
 
@@ -69,9 +69,9 @@ class LinkController extends Controller
         if ($request->hasFile('icon')) {
             // Delete old icon if exists
             if ($link->icon) {
-                Storage::disk('public')->delete($link->icon);
+                Storage::disk('uploads')->delete($link->icon);
             }
-            $iconPath = $request->file('icon')->store('link-icons', 'public');
+            $iconPath = $request->file('icon')->store('link-icons', 'uploads');
             $validated['icon'] = $iconPath;
         }
 
@@ -85,7 +85,7 @@ class LinkController extends Controller
     {
         // Delete icon if exists
         if ($link->icon) {
-            Storage::disk('public')->delete($link->icon);
+            Storage::disk('uploads')->delete($link->icon);
         }
 
         $link->delete();

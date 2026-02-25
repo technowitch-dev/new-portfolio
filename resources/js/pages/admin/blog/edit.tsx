@@ -158,7 +158,7 @@ export default function BlogEdit({ post }: BlogEditProps) {
                                 {existingImages.map((path) => (
                                     <div key={path} className="relative group">
                                         <img
-                                            src={`/storage/${path}`}
+                                            src={`/uploads/${path}`}
                                             alt={`Image ${existingImages.indexOf(path) + 1}`}
                                             className="w-full h-32 object-cover rounded border border-portfolio-color2"
                                         />

@@ -61,7 +61,7 @@ class BlogPostController extends Controller
                 $filename = "{$guid}.{$extension}";
                 
                 // Store image: public/storage/blog-images/{post_id}/{guid}.{ext}
-                $imagePath = $image->storeAs($uploadPath, $filename, 'public');
+                $imagePath = $image->storeAs($uploadPath, $filename, 'uploads');
                 
                 // Add to paths array (store relative path)
                 $imagePaths[] = $imagePath;
@@ -124,7 +124,7 @@ class BlogPostController extends Controller
                 }));
                 
                 // Delete file from storage
-                Storage::disk('public')->delete($deletedPath);
+                Storage::disk('uploads')->delete($deletedPath);
             }
         }
     
@@ -140,7 +140,7 @@ class BlogPostController extends Controller
                 $filename = "{$guid}.{$extension}";
                 
                 // Store image: public/storage/blog-images/{post_id}/{guid}.{ext}
-                $imagePath = $image->storeAs($uploadPath, $filename, 'public');
+                $imagePath = $image->storeAs($uploadPath, $filename, 'uploads');
                 
                 // Add to new paths array
                 $newImagePaths[] = $imagePath;
@@ -161,14 +161,14 @@ class BlogPostController extends Controller
     
         // Clean up orphaned files
         $imageDirectory = "blog-images/{$blog->id}";
-        if (Storage::disk('public')->exists($imageDirectory)) {
-            $filesInDirectory = Storage::disk('public')->files($imageDirectory);
+        if (Storage::disk('uploads')->exists($imageDirectory)) {
+            $filesInDirectory = Storage::disk('uploads')->files($imageDirectory);
             
             foreach ($filesInDirectory as $file) {
                 // Check if file is in the images array
                 if (!in_array($file, $allImages)) {
                     // File is orphaned, delete it
-                    Storage::disk('public')->delete($file);
+                    Storage::disk('uploads')->delete($file);
                 }
             }
         }
@@ -182,13 +182,13 @@ class BlogPostController extends Controller
         // Delete all images from storage
         if (!empty($blog->images) && is_array($blog->images)) {
             foreach ($blog->images as $imagePath) {
-                Storage::disk('public')->delete($imagePath);
+                Storage::disk('uploads')->delete($imagePath);
             }
             
             // Delete the entire directory
             $imageDirectory = "blog-images/{$blog->id}";
-            if (Storage::disk('public')->exists($imageDirectory)) {
-                Storage::disk('public')->deleteDirectory($imageDirectory);
+            if (Storage::disk('uploads')->exists($imageDirectory)) {
+                Storage::disk('uploads')->deleteDirectory($imageDirectory);
             }
         }
 

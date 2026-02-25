@@ -115,7 +115,7 @@ export default function LinkEdit({ link }: LinkEditProps) {
                             <div className="mb-2">
                                 <p className="text-sm text-portfolio-color2 mb-2">Current icon:</p>
                                 <img
-                                    src={`/storage/${link.icon}`}
+                                    src={`/uploads/${link.icon}`}
                                     alt={link.title}
                                     className="h-16 w-16 object-contain border border-portfolio-color2 rounded"
                                 />
