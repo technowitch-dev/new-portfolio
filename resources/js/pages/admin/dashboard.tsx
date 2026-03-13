@@ -14,7 +14,7 @@ interface DashboardProps {
     };
 }
 
-function Dashboard({ stats }: DashboardProps) {
+export default function Dashboard({ stats }: DashboardProps) {
     return (
         <div className="space-y-6">
                 <h1 className="text-4xl text-portfolio-text mb-8">Admin Dashboard</h1>
