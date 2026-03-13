@@ -1,7 +1,6 @@
 import { Link, router } from '@inertiajs/react';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 
-import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 
 interface LinkItem {
@@ -25,8 +24,7 @@ export default function LinksIndex({ links }: LinksIndexProps) {
     };
 
     return (
-        <PublicLayout title="Manage Links">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-4xl text-portfolio-text mb-8">Manage Links</h1>
                     <Link href="/admin/links/create">
@@ -110,6 +108,5 @@ export default function LinksIndex({ links }: LinksIndexProps) {
                     </table>
                 </div>
             </div>
-        </PublicLayout>
     );
 }

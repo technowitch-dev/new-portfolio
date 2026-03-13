@@ -3,7 +3,6 @@ import { ArrowLeft, X, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { Checkbox } from '@/components/ui/checkbox';
-import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -76,8 +75,7 @@ export default function BlogEdit({ post }: BlogEditProps) {
     const existingImages = data.existing_images || [];
 
     return (
-        <PublicLayout title="Edit Blog Post">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                     <Link href="/admin/blog" className="text-portfolio-color2 hover:text-portfolio-text">
                         <ArrowLeft className="h-5 w-5" />
@@ -240,6 +238,5 @@ export default function BlogEdit({ post }: BlogEditProps) {
                     </div>
                 </form>
             </div>
-        </PublicLayout>
     );
 }

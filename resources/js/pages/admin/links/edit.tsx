@@ -2,7 +2,6 @@ import { useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 
-import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -40,8 +39,7 @@ export default function LinkEdit({ link }: LinkEditProps) {
     };
 
     return (
-        <PublicLayout title="Edit Link">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                     <Link href="/admin/links" className="text-portfolio-color2 hover:text-portfolio-text">
                         <ArrowLeft className="h-5 w-5" />
@@ -149,6 +147,5 @@ export default function LinkEdit({ link }: LinkEditProps) {
                     </div>
                 </form>
             </div>
-        </PublicLayout>
     );
 }

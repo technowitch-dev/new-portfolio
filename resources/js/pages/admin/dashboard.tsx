@@ -5,8 +5,6 @@ import SpellbookIcon from '@/components/icons/spellbook-icon';
 import CrystalBallIcon from '@/components/icons/crystal-ball-icon';
 import ScrollIcon from '@/components/icons/scroll-icon';
 
-import PublicLayout from '@/layouts/public-layout';
-
 interface DashboardProps {
     stats: {
         total_links: number;
@@ -16,10 +14,9 @@ interface DashboardProps {
     };
 }
 
-export default function Dashboard({ stats }: DashboardProps) {
+function Dashboard({ stats }: DashboardProps) {
     return (
-        <PublicLayout title="Admin Dashboard">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <h1 className="text-4xl text-portfolio-text mb-8">Admin Dashboard</h1>
 
                 {/* Stats Cards */}
@@ -101,6 +98,5 @@ export default function Dashboard({ stats }: DashboardProps) {
                     </Link>
                 </div>
             </div>
-        </PublicLayout>
     );
 }

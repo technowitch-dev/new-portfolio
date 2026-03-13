@@ -1,8 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { Calendar, ArrowRight } from 'lucide-react';
 
-import PublicLayout from '@/layouts/public-layout';
-
 interface BlogPost {
     id: number;
     title: string;
@@ -35,8 +33,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
     };
 
     return (
-        <PublicLayout title="Blog">
-            <div className="space-y-8">
+        <div className="space-y-8">
                 <h1 className="text-4xl text-portfolio-text mb-8">Blog</h1>
                 
                 {posts.length === 0 ? (
@@ -82,6 +79,5 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                     </section>
                 )}
             </div>
-        </PublicLayout>
     );
 }

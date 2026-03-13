@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 
-import PublicLayout from '@/layouts/public-layout';
-
 interface Link {
     id: number;
     title: string;
@@ -49,8 +47,7 @@ export default function Links({ links }: LinksProps) {
     };
 
     return (
-        <PublicLayout title="Links">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <h1 className="text-4xl text-portfolio-text mb-8">Links</h1>
                 
                 {Object.entries(groupedLinks).map(([category, categoryLinks]) => {
@@ -113,6 +110,5 @@ export default function Links({ links }: LinksProps) {
                     );
                 })}
             </div>
-        </PublicLayout>
     );
 }

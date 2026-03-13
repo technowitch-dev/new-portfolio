@@ -1,6 +1,5 @@
 import { Link, router } from '@inertiajs/react';
 import { Plus, Pencil, Trash2, Eye, Calendar } from 'lucide-react';
-import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -42,8 +41,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
     };
 
     return (
-        <PublicLayout title="Manage Blog Posts">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-4xl text-portfolio-text mb-8">Manage Blog Posts</h1>
                     <Link href="/admin/blog/create">
@@ -157,6 +155,5 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                     </table>
                 </div>
             </div>
-        </PublicLayout>
     );
 }
