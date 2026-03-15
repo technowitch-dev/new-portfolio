@@ -30,4 +30,5 @@ yarn-error.log
 .gitignore
 .xdp-env-ISncL5
 /public/uploads
+/public/build
 

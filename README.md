@@ -28,8 +28,10 @@ When deploying this to cPanel with no npm installed:
 
 When pulling the newest version from main:
 - run "npm run build"
+- zip build folder
 - commit and sync any changes to git
 - on cPanel, pull changes to the server
-- Delete the contents of the /public_html/ folder except for uploads and any other custom content
-- copy the contents of the public file into "public_html" using "cp -r public/* ~/public_html/"
+- Delete the contents of the /public_html/ folder except for /uploads and any other custom content
+- copy the contents of the public file into /public_html
+- unzip build folder
 - ensure .htaccess is present in the public_html folder
