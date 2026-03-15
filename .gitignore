@@ -29,6 +29,5 @@ yarn-error.log
 .npmrc
 .gitignore
 .xdp-env-ISncL5
-/public/uploads/*
-/public/uploads/.gitkeep
+/public/uploads
 

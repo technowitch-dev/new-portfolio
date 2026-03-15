@@ -32,7 +32,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
         });
     };
 
-    const imageUrl = process.env.APP_URL;
+    const imageUrl = import.meta.env.VITE_UPLOADS_URL ?? ''
 
     return (
         <div className="space-y-8">
@@ -55,7 +55,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                                 {post.images && post.images.length > 0 && (
                                     <div className="h-48 overflow-hidden bg-portfolio-bg">
                                         <img
-                                            src={`${imageUrl}${post.images[0]}`}
+                                            src={`${imageUrl}/${post.images[0]}`}
                                             alt={post.title}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                         />

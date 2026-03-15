@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 
+
 interface Link {
     id: number;
     title: string;
@@ -45,7 +46,7 @@ export default function Links({ links }: LinksProps) {
             return newSet;
         });
     };
-    const iconUrl = process.env.APP_URL;
+    const iconUrl = import.meta.env.VITE_UPLOADS_URL ?? '';
 
     return (
         <div className="space-y-6">
@@ -96,7 +97,7 @@ export default function Links({ links }: LinksProps) {
                                                 {link.icon && (
                                                     <div className="mt-4">
                                                         <img
-                                                            src={link.icon ? `${iconUrl}${link.icon}` : ''}
+                                                            src={link.icon ? `${iconUrl}/${link.icon}` : ''}
                                                             alt={link.title}
                                                             className="h-8 w-8 object-contain"
                                                         />
