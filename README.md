@@ -28,11 +28,8 @@ When deploying this to cPanel with no npm installed:
 
 When pulling the newest version from main:
 - run "npm run build"
-- zip public/build (e.g. "public/build" folder → build.zip)
 - commit and sync any changes to git
 - on cPanel, pull changes to the server
+- Delete the contents of the /public_html/ folder except for uploads and any other custom content
 - copy the contents of the public file into "public_html" using "cp -r public/* ~/public_html/"
-- delete index.php and rename index2.php to index.php
-- **CRITICAL**: Upload build.zip from your local machine, then extract it so that build.zip contents go into ~/public_html/build/ (the build folder must exist at public_html/build/ with manifest.json and assets/ inside)
-- delete public/hot if present in the public_html and root public folder
 - ensure .htaccess is present in the public_html folder

@@ -66,6 +66,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
         intervalRef.current = null;
     };
     const cleanContent = DOMPurify.sanitize(post.content);
+    const imageUrl = process.env.APP_URL;
 
     return (
         <div className="max-w-4xl mx-auto space-y-6">
@@ -140,7 +141,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                                     onMouseLeave={() => setIsPaused(false)}
                                 >
                                     <img
-                                        src={`/uploads/${images[currentIndex]}`}
+                                        src={`${imageUrl}${images[currentIndex]}`}
                                         alt={`${post.title} - Image ${currentIndex + 1}`}
                                         className="w-full h-auto object-contain"
                                     />
@@ -167,7 +168,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                             ) : (
                                 <div className="rounded-lg overflow-hidden bg-portfolio-bg">
                                     <img
-                                        src={`/uploads/${images[0]}`}
+                                        src={`${imageUrl}${images[0]}`}
                                         alt={`${post.title}`}
                                         className="w-full h-auto object-contain"
                                     />
