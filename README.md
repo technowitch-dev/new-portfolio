@@ -11,7 +11,7 @@ When deploying this to cPanel with no npm installed:
 - upload the /public folder and all its contents, replacing the existing one
 - run "php artisan key:generate"
 - create mysql database and user, adding those details into the .env file
-- run "php artisan migrate --force"
+- run "php artisan migrate --force" (not necessary if you are keeping the current database)
 - run "php artisan config:cache"
 - run "php artisan route:cache"
 - run "php artisan view:cache"
