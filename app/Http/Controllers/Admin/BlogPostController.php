@@ -55,13 +55,9 @@ class BlogPostController extends Controller
             $uploadPath = "blog-images/{$post->id}";
             
             foreach ($request->file('images') as $image) {
-                // Generate GUID for filename
-                $guid = Str::uuid()->toString();
-                $extension = $image->getClientOriginalExtension();
-                $filename = "{$guid}.{$extension}";
                 
-                // Store image: public/storage/blog-images/{post_id}/{guid}.{ext}
-                $imagePath = $image->storeAs($uploadPath, $filename, 'uploads');
+                // Store image: /uploads/blog-images/{post_id}/{guid}.{ext}
+                $imagePath = $image->store($uploadPath, 'uploads');
                 
                 // Add to paths array (store relative path)
                 $imagePaths[] = $imagePath;
@@ -131,16 +127,12 @@ class BlogPostController extends Controller
         // Handle new image uploads
         $newImagePaths = [];
         if ($request->hasFile('images')) {
-            $uploadPath = "blog-images/{$blog->id}";
+            $uploadPath = "/blog-images/{$blog->id}";
             
             foreach ($request->file('images') as $image) {
-                // Generate GUID for filename
-                $guid = Str::uuid()->toString();
-                $extension = $image->getClientOriginalExtension();
-                $filename = "{$guid}.{$extension}";
                 
-                // Store image: public/storage/blog-images/{post_id}/{guid}.{ext}
-                $imagePath = $image->storeAs($uploadPath, $filename, 'uploads');
+                // Store image: /uploads/blog-images/{post_id}/{guid}.{ext}
+                $imagePath = $image->store($uploadPath, 'uploads');
                 
                 // Add to new paths array
                 $newImagePaths[] = $imagePath;
