@@ -32,6 +32,6 @@ When pulling the newest version from main:
 - commit and sync any changes to git
 - on cPanel, pull changes to the server
 - Delete the contents of the /public_html/ folder except for /uploads and any other custom content
-- copy the contents of the public file into /public_html
 - unzip build folder
+- copy the contents of the public file into /public_html
 - ensure .htaccess is present in the public_html folder

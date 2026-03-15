@@ -168,7 +168,7 @@ export default function BlogShow({ post, previousPost, nextPost }: BlogShowProps
                             ) : (
                                 <div className="rounded-lg overflow-hidden bg-portfolio-bg">
                                     <img
-                                        src={`${imageUrl}${images[0]}`}
+                                        src={`${imageUrl}/${images[0]}`}
                                         alt={`${post.title}`}
                                         className="w-full h-auto object-contain"
                                     />
