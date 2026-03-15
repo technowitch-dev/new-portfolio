@@ -9,6 +9,7 @@ import { ColourSchemeProvider } from './components/colour-scheme-provider';
 import Fireflies from './components/fireflies';
 import { initializeTheme } from './hooks/use-appearance';
 import type { PageProps } from '@inertiajs/core';
+import { resolveLayout } from './layouts/resolve-layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -25,7 +26,7 @@ createInertiaApp({
                 () => (
                     <>
                         <ColourSchemeProvider />
-                        {createElement(Page, props)}
+                        {resolveLayout(name, Page, props)}
                     </>
                 ),
             );

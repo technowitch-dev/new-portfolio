@@ -1,7 +1,6 @@
 import type { SubmitEvent } from 'react';
 import { router, useForm } from '@inertiajs/react';
 
-import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -46,8 +45,7 @@ export default function Settings({ colorScheme, registrationEnabled }: SettingsP
     };
 
     return (
-        <PublicLayout title="Settings">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <h1 className="text-4xl text-portfolio-text mb-8">Settings</h1>
 
                 <section className="bg-portfolio-color1 rounded-lg shadow-lg p-6">
@@ -202,6 +200,5 @@ export default function Settings({ colorScheme, registrationEnabled }: SettingsP
                         </form>
                 </section>
             </div>
-        </PublicLayout>
     );
 }

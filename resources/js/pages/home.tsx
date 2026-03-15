@@ -1,5 +1,4 @@
-import PublicLayout from '@/layouts/public-layout';
-import {Tooltip, TooltipContent, TooltipTrigger} from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface HomeProps {
     // Data will come from controller
@@ -21,8 +20,7 @@ const skills = [
 
 export default function Home({}: HomeProps) {
     return (
-        <PublicLayout title="Home">
-            <div className="space-y-12">
+        <div className="space-y-12">
                 <section className="bg-portfolio-bg p-4 sm:p-6 lg:p-8 z-0 static">
                     <h1 id="technowitch-definition" className="text-3xl sm:text-4xl lg:text-5xl mb-2 text-portfolio-text z-2 relative">technowitch</h1>
                     <div className="prose max-w-none sm:prose-lg z-2 relative">
@@ -140,6 +138,5 @@ export default function Home({}: HomeProps) {
                     </div>
                 </section>
             </div>
-        </PublicLayout>
     );
 }

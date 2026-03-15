@@ -34,6 +34,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::put('/settings/registration', [SettingsController::class, 'updateRegistration'])->name('settings.registration');
 });
 
-Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 require __DIR__.'/settings.php';

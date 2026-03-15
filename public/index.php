@@ -1,20 +1,19 @@
 <?php
 
+define('LARAVEL_BASE', __DIR__ . '/../repositories/new-portfolio');
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// Determine if the application is in maintenance mode...
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+if (file_exists($maintenance = LARAVEL_BASE.'/storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
-// Register the Composer autoloader...
-require __DIR__.'/../vendor/autoload.php';
+require LARAVEL_BASE.'/vendor/autoload.php';
 
-// Bootstrap Laravel and handle the request...
 /** @var Application $app */
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once LARAVEL_BASE.'/bootstrap/app.php';
 
 $app->handleRequest(Request::capture());

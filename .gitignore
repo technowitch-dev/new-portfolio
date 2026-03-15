@@ -1,7 +1,6 @@
 /.phpunit.cache
 /bootstrap/ssr
 /node_modules
-/public/build
 /public/hot
 /public/storage
 /resources/js/actions
@@ -30,3 +29,6 @@ yarn-error.log
 .npmrc
 .gitignore
 .xdp-env-ISncL5
+/public/uploads/*
+/public/uploads/.gitkeep
+

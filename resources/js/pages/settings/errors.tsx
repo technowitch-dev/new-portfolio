@@ -1,6 +1,4 @@
 import { Head, Link } from '@inertiajs/react';
-import PublicLayout from '@/layouts/public-layout';
-
 interface ErrorPageProps {
     status: number;
 }
@@ -24,8 +22,7 @@ export default function ErrorPage({ status }: ErrorPageProps) {
     const description = descriptions[status] ?? 'Uh oh! Something went wrong.';
 
     return (
-        <PublicLayout title={title}>
-            <div className="py-8 text-center">
+        <div className="py-8 text-center">
                 <h1 className="text-6xl font-bold text-portfolio-text mb-4">{status}</h1>
                 <h2 className="text-2xl text-portfolio-text mb-4">{title}</h2>
                 <p className="text-portfolio-text mb-8 max-w-md mx-auto">{description}</p>
@@ -36,6 +33,5 @@ export default function ErrorPage({ status }: ErrorPageProps) {
                     Back to Home
                 </Link>
             </div>
-        </PublicLayout>
     );
 }

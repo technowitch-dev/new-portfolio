@@ -3,7 +3,6 @@ import { ArrowLeft, X, Upload } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 
-import PublicLayout from '@/layouts/public-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -51,8 +50,7 @@ export default function BlogCreate() {
     };
 
     return (
-        <PublicLayout title="Create Blog Post">
-            <div className="space-y-6">
+        <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                     <Link href="/admin/blog" className="text-portfolio-color2 hover:text-portfolio-text">
                         <ArrowLeft className="h-5 w-5" />
@@ -177,6 +175,5 @@ export default function BlogCreate() {
                     </div>
                 </form>
             </div>
-        </PublicLayout>
     );
 }
