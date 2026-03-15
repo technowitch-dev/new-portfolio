@@ -34,4 +34,6 @@ When pulling the newest version from main:
 - Delete the contents of the /public_html/ folder except for /uploads and any other custom content
 - unzip build folder
 - copy the contents of the public file into /public_html
-- ensure .htaccess is present in the public_html folder
+
+OR
+run the deployment script
